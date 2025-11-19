@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>My First Project — Mini Portfolio</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --card:#ffffff; --text:#0f1724; --muted:#536070; --accent:#2563eb;
+  }
+  [data-theme="dark"]{
+    --bg:#071021; --card:#0b1220; --text:#e6eef8; --muted:#9fb0c8; --accent:#60a5fa;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:Inter,system-ui,Arial,sans-serif;
+    background:linear-gradient(180deg,var(--bg),#eaf1ff);
+    color:var(--text); -webkit-font-smoothing:antialiased;
+    padding:24px; display:flex; align-items:center; justify-content:center; min-height:100vh;
+  }
+  .wrap{width:100%; max-width:920px;}
+  header{display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:18px}
+  .brand{display:flex; gap:12px; align-items:center}
+  .logo{
+    width:56px;height:56px;border-radius:12px;display:grid;place-items:center;
+    background:linear-gradient(135deg,var(--accent),#7dd3fc); color:white; font-weight:700;
+    box-shadow:0 6px 18px rgba(32,41,56,0.12);
+  }
+  h1{margin:0;font-size:1.15rem}
+  p.lead{margin:2px 0 0;color:var(--muted); font-size:0.95rem}
+  .theme-btn{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px 12px;border-radius:10px;cursor:pointer}
+  main{display:grid; grid-template-columns: 1fr 340px; gap:18px; align-items:start}
+  @media (max-width:860px){main{grid-template-columns:1fr}}
+  .card{background:var(--card); border-radius:14px; padding:18px; box-shadow:0 8px 30px rgba(12,30,60,0.06)}
+  .intro{display:flex; gap:12px; align-items:center}
+  .avatar{width:84px;height:84px;border-radius:12px; background:linear-gradient(180deg,#c7e3ff,#7dd3fc); display:grid;place-items:center;font-size:1.5rem;font-weight:700;color:#04263b}
+  .bio{flex:1}
+  .skills{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+  .chip{padding:6px 10px;border-radius:999px;background:rgba(37,99,235,0.08);color:var(--accent); font-weight:600; font-size:0.85rem}
+  .projects{margin-top:14px; display:grid; gap:12px}
+  .proj{display:flex; justify-content:space-between; align-items:center; padding:12px; border-radius:10px; background: linear-gradient(180deg, rgba(0,0,0,0.01), transparent)}
+  .btn{border:0;padding:8px 12px;border-radius:8px; cursor:pointer; font-weight:600}
+  .btn-primary{background:var(--accent); color:white}
+  .meta{color:var(--muted); font-size:0.9rem}
+  .side .stat{display:flex; justify-content:space-between; margin-bottom:12px}
+  .small{font-size:0.85rem;color:var(--muted)}
+  .like-row{display:flex; gap:8px; align-items:center; margin-top:10px}
+  input[type="search"]{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06)}
+  footer{margin-top:18px; text-align:center; color:var(--muted); font-size:0.85rem}
+  /* little animation */
+  .typing{display:inline-block; border-right:2px solid var(--text); padding-right:4px; white-space:nowrap; overflow:hidden;}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <header>
+    <div class="brand">
+      <div class="logo">MK</div>
+      <div>
+        <h1>Meet's Mini Portfolio</h1>
+        <p class="lead">A single-file HTML + CSS + JS starter project</p>
+      </div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="theme-btn" id="themeToggle" title="Toggle theme">Toggle theme</button>
+      <a class="theme-btn" href="#" id="viewSource">View file</a>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <div class="card intro">
+        <div class="avatar">M</div>
+        <div class="bio">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <strong>Meet Kachot</strong>
+            <span class="small meta">• IT student • Web dev</span>
+          </div>
+          <div style="margin-top:8px">
+            <span class="typing" id="typed">I build simple web things.</span>
+          </div>
+          <div class="skills" aria-hidden>
+            <div class="chip">HTML</div>
+            <div class="chip">CSS</div>
+            <div class="chip">JavaScript</div>
+            <div class="chip">Git</div>
+          </div>
+          <div class="projects">
+            <div class="proj">
+              <div>
+                <div style="font-weight:700">This project</div>
+                <div class="meta">Single-file portfolio demo</div>
+              </div>
+              <div style="display:flex;gap:8px">
+                <button class="btn btn-primary" id="likeBtn">Like ❤ <span id="likes">0</span></button>
+                <button class="btn" id="copyBtn">Copy README</button>
+              </div>
+            </div>
+
+            <div class="proj">
+              <div>
+                <div style="font-weight:700">Small todo</div>
+                <div class="meta">Try typing & press Enter</div>
+              </div>
+              <div>
+                <input id="todoInput" placeholder="Add todo" style="padding:8px;border-radius:8px;border:1px solid rgba(0,0,0,0.06)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px">
+        <h3 style="margin:0 0 8px 0">Todos</h3>
+        <div id="todos" style="display:grid;gap:8px"></div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="card" style="margin-bottom:12px">
+        <div class="stat"><div class="small">Search</div><div><input type="search" id="search" placeholder="Search project..." /></div></div>
+        <div class="stat"><div class="small">Profile</div><div class="meta">Meet Kachot</div></div>
+        <div class="stat"><div class="small">Status</div><div class="meta" id="status">Ready</div></div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div><strong>About this repo</strong><div class="small">Single file demo for GitHub</div></div>
+          <div class="small">v1.0</div>
+        </div>
+        <div class="like-row">
+          <button class="btn" id="clearBtn">Clear todos</button>
+          <button class="btn btn-primary" id="downloadBtn">Open raw file</button>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    Tip: Make this your repo's README preview by naming the repo `meet-kachot.github.io` (optional).
+  </footer>
+</div>
+
+<script>
+  // Theme toggle + remember
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const savedTheme = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light');
+  if (savedTheme === 'dark') document.body.setAttribute('data-theme','dark');
+  themeToggle.onclick = ()=> {
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    if (isDark) { document.body.removeAttribute('data-theme'); localStorage.setItem('theme','light') }
+    else { document.body.setAttribute('data-theme','dark'); localStorage.setItem('theme','dark') }
+  };
+
+  // Typing effect (simple)
+  const typed = document.getElementById('typed');
+  const messages = ['I build simple web things.','I love clean code.','I use Git & GitHub.'];
+  let i = 0, char = 0, forward = true;
+  setInterval(()=>{
+    const m = messages[i];
+    if (forward) {
+      typed.textContent = m.slice(0,++char);
+      if (char === m.length) forward = false;
+    } else {
+      typed.textContent = m.slice(0, --char);
+      if (char === 0) { forward = true; i = (i+1)%messages.length; }
+    }
+  },80);
+
+  // Like counter
+  const likesEl = document.getElementById('likes');
+  const likeBtn = document.getElementById('likeBtn');
+  let likes = Number(localStorage.getItem('likes') || 0);
+  likesEl.textContent = likes;
+  likeBtn.onclick = ()=> { likes++; localStorage.setItem('likes',likes); likesEl.textContent = likes; };
+
+  // Todos
+  const todoInput = document.getElementById('todoInput');
+  const todosDiv = document.getElementById('todos');
+  const clearBtn = document.getElementById('clearBtn');
+  function renderTodos(){
+    const todos = JSON.parse(localStorage.getItem('todos')||'[]');
+    todosDiv.innerHTML = '';
+    todos.forEach((t, idx) => {
+      const el = document.createElement('div');
+      el.style.display='flex'; el.style.justifyContent='space-between'; el.style.alignItems='center';
+      el.style.padding='8px'; el.style.borderRadius='8px'; el.style.background='rgba(0,0,0,0.02)';
+      el.innerHTML = `<div>${t}</div><div style="display:flex;gap:8px"><button data-i="${idx}" class="rem">Done</button></div>`;
+      todosDiv.appendChild(el);
+    });
+    document.querySelectorAll('.rem').forEach(b=>b.onclick = (e)=>{
+      const idx = Number(e.target.dataset.i);
+      const arr = JSON.parse(localStorage.getItem('todos')||'[]');
+      arr.splice(idx,1);
+      localStorage.setItem('todos',JSON.stringify(arr)); renderTodos();
+    });
+  }
+  todoInput.addEventListener('keydown', e=>{
+    if (e.key === 'Enter' && todoInput.value.trim()){
+      const arr = JSON.parse(localStorage.getItem('todos')||'[]');
+      arr.unshift(todoInput.value.trim()); localStorage.setItem('todos',JSON.stringify(arr));
+      todoInput.value=''; renderTodos();
+    }
+  });
+  clearBtn.onclick = ()=> { localStorage.removeItem('todos'); renderTodos(); };
+
+  // Copy README (sample) to clipboard
+  const copyBtn = document.getElementById('copyBtn');
+  copyBtn.onclick = async ()=> {
+    const readme = `# My First Project\n\nSingle-file portfolio demo. Built with HTML/CSS/JS.`;
+    try { await navigator.clipboard.writeText(readme); alert('README copied!'); } catch { alert('Copy failed — allow clipboard access.'); }
+  };
+
+  // View raw / open file: using location to show raw file in new tab
+  document.getElementById('downloadBtn').onclick = ()=> { window.open(window.location.href, '_blank'); };
+  document.getElementById('viewSource').onclick = (e)=> { e.preventDefault(); window.open(window.location.href, '_blank'); };
+
+  // init render
+  renderTodos();
+</script>
+</body>
+</html>
